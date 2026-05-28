@@ -67,8 +67,17 @@ export default function App() {
 
         {loading && <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />}
 
+        {countryByName && !loading && (
+          <View style={styles.resultContainer}>
+            <Text style={styles.bold}>Nome Comum (Inglês): <Text style={styles.normal}>{countryByName.name.common}</Text></Text>
+            <Text style={styles.bold}>Nome em Português: <Text style={styles.normal}>{countryByName.translations && countryByName.translations.por && countryByName.translations.por.common}</Text></Text>
+            <Text style={styles.bold}>Nome em Russo: <Text style={styles.normal}>{countryByName.translations && countryByName.translations.rus && countryByName.translations.rus.common}</Text></Text>
+            
+            <Text style={styles.bold}>Link do Mapa: <Text style={styles.normal}>{countryByName.maps && countryByName.maps.openStreetMaps}</Text></Text>   
       </View>
+        )}
     </View>
+  </View>
   );
 }
 
@@ -104,6 +113,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     width: '100%', 
+  },
+  resultContainer: {
+    marginTop: 15,
+    padding: 10,
+    backgroundColor: '#e9ecef',
+    borderRadius: 5,
+    width: '100%',
+  },
+  bold: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  normal: {
+    fontWeight: 'normal',
   },
   loader: {
     marginTop: 20,
