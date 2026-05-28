@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ActivityIndicator, Alert } from 'react-native';
 
 export default function App() {
   // Estados para buscar por Nome
@@ -9,12 +9,23 @@ export default function App() {
 
   // Busca por Nome
   const searchByName = async () => {
-    // não faz a busca se o campo estiver vazio
     if (!nameInput.trim()) return;
     
     setLoading(true);
     setCountryByName(null);
+    
+    try {
+      // Requisição de API
+      const response = await fetch('https://restcountries.com/v3.1/all?fields=name,translations,maps');
+      if (!response.ok) throw new Error('Erro ao buscar lista de países');
 
+      const data = await response.json();
+            
+    } catch (error) {
+      Alert.alert('Erro', (error as Error).message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,6 +41,8 @@ export default function App() {
           onChangeText={setNameInput}
         />
         <Button title="Buscar por Nome" onPress={searchByName} disabled={loading} />
+
+        {loading && <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />}
 
       </View>
     </View>
@@ -68,5 +81,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     width: '100%', 
+  },
+  loader: {
+    marginTop: 20,
   }
 });
