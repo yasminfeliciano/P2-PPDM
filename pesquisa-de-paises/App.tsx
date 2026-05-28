@@ -15,11 +15,34 @@ export default function App() {
     setCountryByName(null);
     
     try {
+      // Padronização usando toLowerCase
+      const searchTerm = nameInput.toLowerCase();
+
       // Requisição de API
       const response = await fetch('https://restcountries.com/v3.1/all?fields=name,translations,maps');
       if (!response.ok) throw new Error('Erro ao buscar lista de países');
 
       const data = await response.json();
+
+      // Encontrando o país
+      const foundCountries = data.filter((country: any) => {
+        const ptCommon = country.translations && country.translations.por && country.translations.por.common
+          ? country.translations.por.common.toLowerCase()
+          : '';
+        const enCommon = country.name && country.name.common 
+          ? country.name.common.toLowerCase() 
+          : ''; 
+
+        return ptCommon.includes(searchTerm) || enCommon.includes(searchTerm);
+      });
+
+      // Se o array do filtro estiver vazio, acusa o erro
+      if (foundCountries.length === 0) {
+        throw new Error('País não encontrado. Verifique a ortografia.');
+      }
+      
+      // Armazena o primeiro elemento no índice 0
+      setCountryByName(foundCountries[0]);
             
     } catch (error) {
       Alert.alert('Erro', (error as Error).message);
