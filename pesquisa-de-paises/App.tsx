@@ -106,6 +106,7 @@ export default function App() {
           title="Buscar por Nome"
           onPress={searchByName}
           disabled={loading}
+          color="#5c7498"
         />
 
         {loading && (
@@ -156,6 +157,7 @@ export default function App() {
           title="Buscar por Capital"
           onPress={searchByCapital}
           disabled={loadingCapital}
+          color="#5c7498"
         />
 
         {loadingCapital && (
@@ -189,57 +191,74 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#0F172A",
     justifyContent: "center",
     alignItems: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#F8FAFC",
     marginBottom: 20,
   },
   card: {
     width: "100%",
-    backgroundColor: "#fff",
+    maxWidth:900,
+    backgroundColor: "#1E293B",
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 30,
     marginBottom: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
   },
   subtitle: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#E2E8F0",
     marginBottom: 10,
+  },
+  button: {
+    paddingVertical: 14,
+    borderRadius: 14,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    color: "#FFFFFF",
+    backgroundColor: "#334155",
+    borderColor: "#475569",
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 10,
     width: "100%",
   },
   resultContainer: {
     marginTop: 15,
     padding: 10,
-    backgroundColor: "#e9ecef",
+    backgroundColor: "#0F172A",
     borderRadius: 5,
     width: "100%",
   },
   bold: {
     fontWeight: "bold",
     marginBottom: 5,
+    color: "#F8FAFC",
   },
   normal: {
     fontWeight: "normal",
+    color: "#CBD5E1",
   },
   loader: {
     marginTop: 20,
   },
 
   flag: {
-    width: "100%",
-    height: 180,
-    marginTop: 10,
-    resizeMode: "contain",
+    width: 350,
+    height: 200,
+    marginTop: 15,
+    borderRadius: 20,
+    resizeMode: "cover",
+    borderWidth: 3,
+    borderColor: "#475569",
   },
 });
